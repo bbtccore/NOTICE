@@ -1,2 +1,2 @@
 # NOTICE
-- there will be a public repository once the program is secure
+- there will be a repository once the program is secure
