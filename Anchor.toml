@@ -1,0 +1,12 @@
+[features]
+seeds = true
+[programs.localnet]
+pqf5700 = "PQF5700xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[registry]
+url = "https://anchor.projectserum.com"
+[wallet]
+path = "~/.config/solana/id.json"
+[provider]
+cluster = "localnet"
+
+[scripts]

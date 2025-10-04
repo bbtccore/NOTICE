@@ -1,26 +1,43 @@
-# Project Name: BTCe
+# PQF 5700 - Post-Quantum Enforced Transfers on Solana
 
----
+This repo contains an Anchor on-chain program that enforces a custom PQC-attested transfer for a specific Token-2022 mint, plus TypeScript scripts to deploy the mint and perform transfers.
 
-## Project Overview
-BTCe is an experimental/development blockchain project based on Bitcoin Core.  
-It features a hybrid PoW + PoS consensus mechanism, zk-SNARKs, and multi-layer encryption verification.
+IMPORTANT: The included verifier uses a placeholder hash check to simulate PQC verification. For production, integrate a true Dilithium/Falcon verifier program or a syscall-enabled library.
 
-## Key Features
-- zk-SNARK implementation
-- Hybrid PoW + PoS consensus
-- NIST-standard encryption
+## Specs
+- Name: PQF 5700
+- Symbol: PQF 5700
+- Supply cap: 57,000,000
+- Enforced: Custom `pqc_transfer` must be used, not plain SPL transfer
 
-## Private Repository IP Notice
-This repository is for **promotional purposes only**.  
-The full code is maintained in a private repository.
+## Setup
 
-For inquiries about purchasing the private repository IP, please contact:  
- hoic517@gmail.com
+```bash
+cp .env.example .env
+# Set SOLANA_PRIVATE_KEY, RPC_URL, optionally PROGRAM_ID
+npm install
+anchor build
+```
 
-## Disclaimer
-The code provided (public or private) is offered **"as-is"** for informational and promotional purposes.  
-The author/owner makes **no warranties, express or implied**, regarding the functionality, reliability, or security of the code.
+## Deploy
 
-By accessing or using this code, you agree that the author/owner is **not liable for any damages, losses, or issues**, including but not limited to bugs, defects, or security vulnerabilities.  
-**Use at your own risk.**
+```bash
+npm run deploy:mint
+```
+
+This will:
+- Create a Token-2022 mint
+- Mint 57,000,000 tokens to your key's ATA
+- Configure the program with the allowed mint
+
+## Transfer with PQC attestation
+
+```bash
+export PROGRAM_ID=YourDeployedProgramId
+export MINT=YourMintAddress
+export TO=RecipientPubkey
+export AMOUNT=1000000
+npm run transfer
+```
+
+Again, the PQC check is mocked; replace with real verifier.
